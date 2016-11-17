@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -10,17 +9,17 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        List<Customer> customers = new List<Customer>()
-            {
-                new Customer() { Name = "John Williams" , Id = 1},
-                new Customer() { Name = "Alain Dupont" , Id = 2}
-            };
+        private ApplicationDbContext _context;
 
-
-        // GET: Customers
-        public ActionResult Index()
+        public CustomersController()
         {
-            return View();
+            _context = new ApplicationDbContext();
+            
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
         }
 
         //[Route("movies/released/{year:regex(\\d{4}):range(2014, 2019)}/{month:regex(\\d{2}):range(1, 12)}")]
@@ -29,7 +28,7 @@ namespace Vidly.Controllers
         {
             var viewModel = new CustomersSummaryViewModel
             {
-                Customers = customers
+                Customers = _context.Customers.Include(c => c.MembershipType).ToList()
             };
 
             return View(viewModel);
@@ -38,15 +37,12 @@ namespace Vidly.Controllers
         [Route("customers/details/{id}")]
         public ActionResult CustomerDetail(int id)
         {
-            Customer customerTemp = null;
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
-            foreach (var customer in customers)
-            {
-                if (customer.Id == id)
-                    customerTemp = customer;
-            }
-            var viewModel = new CustomerDetailViewModel() {Customer = customerTemp};
+            if(customer == null)
+                return HttpNotFound();
 
+            var viewModel = new CustomerDetailViewModel() {Customer = customer};
 
             return View(viewModel);
         }

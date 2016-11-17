@@ -1,5 +1,5 @@
 ﻿@model Vidly.ViewModels.CustomersSummaryViewModel
-    
+
 @{
     ViewBag.Title = "Customers Summary";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,7 +17,8 @@ else
         <thead>
         <tr>
             <th> Number </th>
-            <th> Full name</th>
+            <th> Full name </th>
+            <th> Membership Type </th>
         </tr>
         </thead>
         <tbody>
@@ -25,12 +26,10 @@ else
         {
             <tr>
                 <td> @customer.Id </td>
-                <td> @Html.ActionLink(@customer.Name, "CustomerDetail", "Customers", new { id = @customer.Id}, null)</td>
+                <td> @Html.ActionLink(customer.Name, "CustomerDetail", "Customers", new {id = customer.Id}, null)</td>
+                <td> @customer.MembershipType.Name </td>
             </tr>
         }
         </tbody>
     </table>
 }
-
-
-

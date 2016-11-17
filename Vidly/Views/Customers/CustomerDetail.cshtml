@@ -1,4 +1,5 @@
-﻿@model Vidly.ViewModels.CustomerDetailViewModel
+﻿@using Vidly.Models
+@model Vidly.ViewModels.CustomerDetailViewModel
 
 
 @{
@@ -8,3 +9,9 @@
 
 <h1>@Model.Customer.Name</h1>
 <hr/>
+<h2>Membership Type : @Model.Customer.MembershipType.Name</h2>
+<br/>
+@if (!Model.Customer.BirthDate.Equals(null))
+{
+    <h2> Birthdate : @Convert.ToDateTime(Model.Customer.BirthDate).ToShortDateString() </h2>
+}
