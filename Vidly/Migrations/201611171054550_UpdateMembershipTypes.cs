@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace Vidly.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class UpdateMembershipTypes : DbMigration
     {
         public override void Up()
@@ -12,7 +11,7 @@ namespace Vidly.Migrations
             Sql("UPDATE MembershipTypes SET Name ='Quaterly' WHERE Id = 3");
             Sql("UPDATE MembershipTypes SET Name ='Annually' WHERE Id = 4");
         }
-        
+
         public override void Down()
         {
         }

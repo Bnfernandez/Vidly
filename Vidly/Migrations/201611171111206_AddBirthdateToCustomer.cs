@@ -1,15 +1,14 @@
+using System.Data.Entity.Migrations;
+
 namespace Vidly.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddBirthdateToCustomer : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Customers", "BirthDate", c => c.DateTime(nullable: false));
+            AddColumn("dbo.Customers", "BirthDate", c => c.DateTime(false));
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.Customers", "BirthDate");

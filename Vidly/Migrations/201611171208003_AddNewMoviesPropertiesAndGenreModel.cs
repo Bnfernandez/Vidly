@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace Vidly.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddNewMoviesPropertiesAndGenreModel : DbMigration
     {
         public override void Up()
@@ -10,33 +9,32 @@ namespace Vidly.Migrations
             CreateTable(
                 "dbo.Movies",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        ReleaseDate = c.DateTime(nullable: false),
-                        DateAdded = c.DateTime(nullable: false),
-                        NumberInStock = c.Int(nullable: false),
-                        MovieGenreId = c.Int(nullable: false),
-                    })
+                {
+                    Id = c.Int(false, true),
+                    Name = c.String(),
+                    ReleaseDate = c.DateTime(false),
+                    DateAdded = c.DateTime(false),
+                    NumberInStock = c.Int(false),
+                    MovieGenreId = c.Int(false)
+                })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.MovieGenres", t => t.MovieGenreId, cascadeDelete: true)
+                .ForeignKey("dbo.MovieGenres", t => t.MovieGenreId, true)
                 .Index(t => t.MovieGenreId);
-            
+
             CreateTable(
                 "dbo.MovieGenres",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                    })
+                {
+                    Id = c.Int(false, true),
+                    Name = c.String(false)
+                })
                 .PrimaryKey(t => t.Id);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Movies", "MovieGenreId", "dbo.MovieGenres");
-            DropIndex("dbo.Movies", new[] { "MovieGenreId" });
+            DropIndex("dbo.Movies", new[] {"MovieGenreId"});
             DropTable("dbo.MovieGenres");
             DropTable("dbo.Movies");
         }

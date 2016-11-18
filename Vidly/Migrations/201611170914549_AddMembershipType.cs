@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace Vidly.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddMembershipType : DbMigration
     {
         public override void Up()
@@ -10,23 +9,23 @@ namespace Vidly.Migrations
             CreateTable(
                 "dbo.MembershipTypes",
                 c => new
-                    {
-                        Id = c.Byte(nullable: false),
-                        SignUpFeee = c.Short(nullable: false),
-                        DurationInMonths = c.Byte(nullable: false),
-                        DiscountRate = c.Byte(nullable: false),
-                    })
+                {
+                    Id = c.Byte(false),
+                    SignUpFeee = c.Short(false),
+                    DurationInMonths = c.Byte(false),
+                    DiscountRate = c.Byte(false)
+                })
                 .PrimaryKey(t => t.Id);
-            
-            AddColumn("dbo.Customers", "MembershipTypeId", c => c.Byte(nullable: false));
+
+            AddColumn("dbo.Customers", "MembershipTypeId", c => c.Byte(false));
             CreateIndex("dbo.Customers", "MembershipTypeId");
-            AddForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes", "Id", true);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes");
-            DropIndex("dbo.Customers", new[] { "MembershipTypeId" });
+            DropIndex("dbo.Customers", new[] {"MembershipTypeId"});
             DropColumn("dbo.Customers", "MembershipTypeId");
             DropTable("dbo.MembershipTypes");
         }

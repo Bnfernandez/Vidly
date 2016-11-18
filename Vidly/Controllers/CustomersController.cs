@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -9,12 +8,11 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CustomersController()
         {
             _context = new ApplicationDbContext();
-            
         }
 
         protected override void Dispose(bool disposing)
@@ -22,27 +20,63 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
-        //[Route("movies/released/{year:regex(\\d{4}):range(2014, 2019)}/{month:regex(\\d{2}):range(1, 12)}")]
-        [Route("customers/summary")]
-        public ActionResult CustomersSummary()
+        public ActionResult New()
         {
-            var viewModel = new CustomersSummaryViewModel
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            var viewModel = new CustomerFormViewModel
             {
-                Customers = _context.Customers.Include(c => c.MembershipType).ToList()
+                MembershipTypes = membershipTypes
             };
 
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
-        [Route("customers/details/{id}")]
-        public ActionResult CustomerDetail(int id)
+        [HttpPost]
+        public ActionResult Save(Customer customer)
         {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
 
-            if(customer == null)
+                customerInDb.Name = customer.Name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("CustomersSummary", "Customers");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
                 return HttpNotFound();
 
-            var viewModel = new CustomerDetailViewModel() {Customer = customer};
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+
+        [Route("Customers/List")]
+        public ActionResult CustomersSummary()
+        {
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+
+            var viewModel = new CustomerFormViewModel()
+            {
+                Customers = customers
+            };
 
             return View(viewModel);
         }

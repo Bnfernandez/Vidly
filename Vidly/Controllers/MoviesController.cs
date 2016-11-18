@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -9,20 +10,18 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
-            _context = new ApplicationDbContext();;    
+            _context = new ApplicationDbContext();
         }
 
-        
 
         [Route("Movies/")]
         public ActionResult MoviesSummary()
         {
-            var viewModel = new MoviesSummaryViewModel
+            var viewModel = new MovieFormViewModel()
             {
                 Movies = _context.Movies.Include(m => m.MovieGenre).ToList()
             };
@@ -30,22 +29,54 @@ namespace Vidly.Controllers
             return View(viewModel);
         }
 
-        [Route("Movies/Detail/{id}")]
-        public ActionResult MovieDetail(int id)
+        [HttpPost]
+        public ActionResult Save(Movie movie)
         {
-            var movie = _context.Movies.Include(m => m.MovieGenre).SingleOrDefault(m => m.Id == id);
+            if (movie.Id == 0)
+                _context.Movies.Add(movie);
+            else
+            {
+                var moveInDb = _context.Movies.Single(m => m.Id == movie.Id);
 
-            var viewModel = new MovieDetailViewModel() {Movie = movie};
+                moveInDb.Name = movie.Name;
+                moveInDb.DateAdded = movie.DateAdded;
+                moveInDb.ReleaseDate = movie.ReleaseDate;
+                moveInDb.NumberInStock = movie.NumberInStock;
+                moveInDb.MovieGenreId = movie.MovieGenreId;
+            }
+
+            _context.SaveChanges();
 
 
-            return View(viewModel);
+            return RedirectToAction("MoviesSummary", "Movies");
         }
 
-        //mvcaction4 = quick way to create an action
-        [Route("movies/released/{year:regex(\\d{4}):range(2014, 2019)}/{month:regex(\\d{2}):range(1, 12)}")]
-        public ActionResult ByReleaseDate(int year, int month)
+        public ActionResult Edit(int id)
         {
-            return Content(year + "/" + month);
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if(movie == null)
+                return HttpNotFound();
+
+            var viewModel = new MovieFormViewModel()
+            {
+                Movie = movie,
+                MovieGenres = _context.MovieGenres.ToList()
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+        public ActionResult New()
+        {
+            var genres = _context.MovieGenres;
+
+            var viewModel = new MovieFormViewModel()
+            {
+                MovieGenres = genres
+            };
+
+            return View("MovieForm", viewModel);
         }
     }
-}
+};
