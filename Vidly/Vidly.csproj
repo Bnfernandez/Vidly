@@ -263,12 +263,45 @@
     <Compile Include="Migrations\201611181026033_AddModifiedModel.Designer.cs">
       <DependentUpon>201611181026033_AddModifiedModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611201308344_AddChangedCustomerModel.cs" />
+    <Compile Include="Migrations\201611201308344_AddChangedCustomerModel.Designer.cs">
+      <DependentUpon>201611201308344_AddChangedCustomerModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201319533_ModifiedCustomerModel.cs" />
+    <Compile Include="Migrations\201611201319533_ModifiedCustomerModel.Designer.cs">
+      <DependentUpon>201611201319533_ModifiedCustomerModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201423125_ChangedMovieModel.cs" />
+    <Compile Include="Migrations\201611201423125_ChangedMovieModel.Designer.cs">
+      <DependentUpon>201611201423125_ChangedMovieModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201503172_ChangedMovieModel1.cs" />
+    <Compile Include="Migrations\201611201503172_ChangedMovieModel1.Designer.cs">
+      <DependentUpon>201611201503172_ChangedMovieModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201505491_UpdateNullablePropertyDateAddedofMovie.cs" />
+    <Compile Include="Migrations\201611201505491_UpdateNullablePropertyDateAddedofMovie.Designer.cs">
+      <DependentUpon>201611201505491_UpdateNullablePropertyDateAddedofMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201515256_UpdateNullablePropertyDateAddedofMovie1.cs" />
+    <Compile Include="Migrations\201611201515256_UpdateNullablePropertyDateAddedofMovie1.Designer.cs">
+      <DependentUpon>201611201515256_UpdateNullablePropertyDateAddedofMovie1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201518009_UpdateNullablePropertyDateAddedofMovie2.cs" />
+    <Compile Include="Migrations\201611201518009_UpdateNullablePropertyDateAddedofMovie2.Designer.cs">
+      <DependentUpon>201611201518009_UpdateNullablePropertyDateAddedofMovie2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611201523468_ChangedReleaseDateType.cs" />
+    <Compile Include="Migrations\201611201523468_ChangedReleaseDateType.Designer.cs">
+      <DependentUpon>201611201523468_ChangedReleaseDateType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieGenre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -399,6 +432,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611181026033_AddModifiedModel.resx">
       <DependentUpon>201611181026033_AddModifiedModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201308344_AddChangedCustomerModel.resx">
+      <DependentUpon>201611201308344_AddChangedCustomerModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201319533_ModifiedCustomerModel.resx">
+      <DependentUpon>201611201319533_ModifiedCustomerModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201423125_ChangedMovieModel.resx">
+      <DependentUpon>201611201423125_ChangedMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201503172_ChangedMovieModel1.resx">
+      <DependentUpon>201611201503172_ChangedMovieModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201505491_UpdateNullablePropertyDateAddedofMovie.resx">
+      <DependentUpon>201611201505491_UpdateNullablePropertyDateAddedofMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201515256_UpdateNullablePropertyDateAddedofMovie1.resx">
+      <DependentUpon>201611201515256_UpdateNullablePropertyDateAddedofMovie1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201518009_UpdateNullablePropertyDateAddedofMovie2.resx">
+      <DependentUpon>201611201518009_UpdateNullablePropertyDateAddedofMovie2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611201523468_ChangedReleaseDateType.resx">
+      <DependentUpon>201611201523468_ChangedReleaseDateType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
