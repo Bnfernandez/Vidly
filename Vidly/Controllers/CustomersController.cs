@@ -84,14 +84,7 @@ namespace Vidly.Controllers
         [Route("Customers/List")]
         public ActionResult CustomersSummary()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-
-            var viewModel = new CustomerFormViewModel()
-            {
-                Customers = customers
-            };
-
-            return View(viewModel);
+            return View();
         }
     }
 }

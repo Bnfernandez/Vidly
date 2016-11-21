@@ -21,12 +21,7 @@ namespace Vidly.Controllers
         [Route("Movies/")]
         public ActionResult MoviesSummary()
         {
-            var viewModel = new MovieFormViewModel()
-            {
-                Movies = _context.Movies.Include(m => m.MovieGenre).ToList()
-            };
-
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
