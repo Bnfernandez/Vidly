@@ -1,5 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -84,6 +86,14 @@ namespace Vidly.Controllers
         [Route("Customers/List")]
         public ActionResult CustomersSummary()
         {
+            if (MemoryCache.Default["MovieGenres"] == null)
+            {
+                MemoryCache.Default["MovieGenres"] = _context.MovieGenres.ToList();
+            }
+
+
+            var movieGenres = MemoryCache.Default["MovieGenres"] as IEnumerable<MovieGenre>;
+
             return View();
         }
     }
