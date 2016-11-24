@@ -30,5 +30,7 @@ namespace Vidly.Models
         [Required(ErrorMessage = "Please enter movie's genre.")]
         [Display(Name = "Movie Genre")]
         public int MovieGenreId { get; set; }
+
+        public int NumberAvailable { get; set; }
     }
 }
