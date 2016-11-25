@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
-using AutoMapper;
 using Vidly.Dtos;
 using Vidly.Models;
 
@@ -11,8 +8,7 @@ namespace Vidly.Controllers.Api
 {
     public class NewRentalsController : ApiController
     {
-
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public NewRentalsController()
         {
@@ -34,7 +30,7 @@ namespace Vidly.Controllers.Api
 
                 movie.NumberAvailable--;
 
-                var rental = new Rental()
+                var rental = new Rental
                 {
                     Customer = customer,
                     Movie = movie,

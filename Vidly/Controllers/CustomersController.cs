@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Mvc;
@@ -41,7 +40,7 @@ namespace Vidly.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new CustomerFormViewModel()
+                var viewModel = new CustomerFormViewModel
                 {
                     Customer = customer,
                     MembershipTypes = _context.MembershipTypes

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Data.Entity;
 using System.Web.Http;
 using AutoMapper;
 using Vidly.Dtos;
@@ -13,11 +11,12 @@ namespace Vidly.Controllers.Api
 {
     public class CustomersController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CustomersController()
         {
-            _context = new ApplicationDbContext();;
+            _context = new ApplicationDbContext();
+            ;
         }
 
         // GET /api/customers
@@ -26,7 +25,7 @@ namespace Vidly.Controllers.Api
             var customersQuery = _context.Customers
                 .Include(c => c.MembershipType);
 
-            if (!String.IsNullOrWhiteSpace(query))
+            if (!string.IsNullOrWhiteSpace(query))
                 customersQuery = customersQuery.Where(c => c.Name.Contains(query));
 
             var customerDtos = customersQuery
@@ -39,9 +38,9 @@ namespace Vidly.Controllers.Api
         // GET /api/customers/1
         public IHttpActionResult GetCustomer(int id)
         {
-            var customer =  _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if(customer == null)
+            if (customer == null)
                 return NotFound();
 
             return Ok(Mapper.Map<Customer, CustomerDto>(customer));
@@ -73,7 +72,7 @@ namespace Vidly.Controllers.Api
 
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if(customerInDb == null)
+            if (customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             Mapper.Map(customerDto, customerInDb);

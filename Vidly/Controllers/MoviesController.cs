@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -21,7 +18,7 @@ namespace Vidly.Controllers
         [Route("Movies/")]
         public ActionResult MoviesSummary()
         {
-            if(User.IsInRole(RoleName.CanManageMovies))
+            if (User.IsInRole(RoleName.CanManageMovies))
                 return View("List");
 
             return View("ReadOnlyList");
@@ -65,7 +62,7 @@ namespace Vidly.Controllers
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
 
-            if(movie == null)
+            if (movie == null)
                 return HttpNotFound();
 
             var viewModel = new MovieFormViewModel(movie)
@@ -81,7 +78,7 @@ namespace Vidly.Controllers
         {
             var genres = _context.MovieGenres;
 
-            var viewModel = new MovieFormViewModel()
+            var viewModel = new MovieFormViewModel
             {
                 MovieGenres = genres
             };
@@ -89,4 +86,4 @@ namespace Vidly.Controllers
             return View("MovieForm", viewModel);
         }
     }
-};
+}

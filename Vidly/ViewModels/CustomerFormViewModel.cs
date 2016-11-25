@@ -10,6 +10,5 @@ namespace Vidly.ViewModels
         public List<Customer> Customers { get; set; }
 
         public string Title => Customer.Id != 0 ? "Edit Customer" : "New Customer";
-
     }
 }

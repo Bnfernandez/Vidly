@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using Vidly.Dtos;
@@ -13,7 +11,7 @@ namespace Vidly.Controllers.Api
 {
     public class MoviesController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
@@ -26,7 +24,7 @@ namespace Vidly.Controllers.Api
                 .Include(m => m.MovieGenre)
                 .Where(m => m.NumberAvailable > 0);
 
-            if (!String.IsNullOrWhiteSpace(query))
+            if (!string.IsNullOrWhiteSpace(query))
                 moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
 
             return moviesQuery

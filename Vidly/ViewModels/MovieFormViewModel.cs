@@ -7,6 +7,20 @@ namespace Vidly.ViewModels
 {
     public class MovieFormViewModel
     {
+        public MovieFormViewModel()
+        {
+            Id = 0;
+        }
+
+        public MovieFormViewModel(Movie movie)
+        {
+            Id = movie.Id;
+            Name = movie.Name;
+            ReleaseDate = movie.ReleaseDate;
+            NumberInStock = movie.NumberInStock;
+            MovieGenreId = movie.MovieGenreId;
+        }
+
         public IEnumerable<MovieGenre> MovieGenres { get; set; }
         public List<Movie> Movies { get; set; }
 
@@ -28,20 +42,6 @@ namespace Vidly.ViewModels
         [Required(ErrorMessage = "Please enter movie's genre.")]
         [Display(Name = "Movie Genre")]
         public int? MovieGenreId { get; set; }
-
-        public MovieFormViewModel()
-        {
-            Id = 0;
-        }
-
-        public MovieFormViewModel(Movie movie)
-        {
-            Id = movie.Id;
-            Name = movie.Name;
-            ReleaseDate = movie.ReleaseDate;
-            NumberInStock = movie.NumberInStock;
-            MovieGenreId = movie.MovieGenreId;
-        }
 
         public string Title => Id != 0 ? "Edit Movie" : "New Movie";
     }

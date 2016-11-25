@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
@@ -150,7 +149,6 @@ namespace Vidly.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
                     //Code to register a new user with a specific role
 //                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
 //                    var roleManager = new RoleManager<IdentityRole>(roleStore);
@@ -377,7 +375,9 @@ namespace Vidly.Controllers
                 }
                 var user = new ApplicationUser
                 {
-                    UserName = model.Email, Email = model.Email, DrivingLicense = model.DrivingLicense
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DrivingLicense = model.DrivingLicense
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
